@@ -12,6 +12,7 @@
             <tbody>
                 <tr>
                     <td><a href="{{ route('admin.posts.index') }}">Posts</a></td>
+                    <td><a href="{{ route('admin.posts.create') }}">New Post</a></td>
                 </tr>
             </tbody>
         </table>

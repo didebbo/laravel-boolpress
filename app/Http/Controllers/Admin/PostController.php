@@ -4,11 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class PostController extends Controller
 {
+    protected $validator = [
+        'title' => ['required', 'string', 'max:100'],
+        'slug' => ['nullable', 'string', 'max:100'],
+        'content' => ['required', 'string'],
+        'url_thumb' => ['required', 'url', 'ends_with:.jpg'],
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +25,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        // dd('hi');
         return view('admin.posts.index', ['posts' => Post::all()]);
     }
 
@@ -27,7 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,7 +46,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validator);
+        $data = $request->all();
+        $data['slug'] = $data['slug'] === NULL
+            ? Str::slug($data['title'], '-')
+            : Str::slug($data['slug'], '-');
+        $newPost = Post::create($data);
+        return redirect()->route('admin.posts.show', ['post' => $newPost['id']]);
     }
 
     /**
@@ -58,9 +72,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', ['post' => $post]);
     }
 
     /**
@@ -70,9 +84,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate($this->validator);
+        $data = $request->all();
+        $data['slug'] = $data['slug'] === NULL
+            ? Str::slug($data['title'], '-')
+            : Str::slug($data['slug'], '-');
+        $post->update($data);
+        return redirect()->route('admin.posts.show', ['post' => $post]);
     }
 
     /**
@@ -81,8 +101,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete($post);
+        return redirect()->route('admin.posts.index', ['posts' => Post::all()]);
     }
 }
