@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', 'PageController@index')->name('index');
+Route::get('/{slug}', 'PageController@show')->name('show');
 
 Auth::routes();
 
