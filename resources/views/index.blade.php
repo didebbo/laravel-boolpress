@@ -9,10 +9,6 @@
     <title>Boolpress</title>
 </head>
 
-{{-- @php
-dd($posts);
-@endphp --}}
-
 <body>
     <div class="container">
         @include('partials/header')
