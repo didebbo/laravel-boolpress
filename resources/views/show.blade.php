@@ -11,7 +11,6 @@
 
 <body>
     <div class="container">
-        {{-- test 5 --}}
         @include('partials/header')
         <main class="container">
             <div class="row">
