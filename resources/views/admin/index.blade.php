@@ -14,6 +14,10 @@
                     <td><a href="{{ route('admin.posts.index') }}">Posts</a></td>
                     <td><a href="{{ route('admin.posts.create') }}">New Post</a></td>
                 </tr>
+                <tr>
+                    <td><a href="{{ route('admin.categories.index') }}">Categories</a></td>
+                    <td><a href="{{ route('admin.categories.create') }}">New Category</a></td>
+                </tr>
             </tbody>
         </table>
     </div>

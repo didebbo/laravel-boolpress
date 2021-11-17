@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($data['title'], '-');
         // dd($data);
         $newCategory = Category::create($data);
-        return redirect()->route('admin.categories.index', ['category' => $newCategory]);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
         $category->update($data);
-        return redirect()->route('admin.categories.index', ['category' => $category]);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
