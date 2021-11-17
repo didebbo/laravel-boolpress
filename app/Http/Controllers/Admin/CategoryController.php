@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($data['title'], '-');
         // dd($data);
         $newCategory = Category::create($data);
-        return redirect()->route('admin.categories.show', ['category' => $newCategory]);
+        return redirect()->route('admin.categories.index', ['category' => $newCategory]);
     }
 
     /**
@@ -59,7 +59,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return redirect()->view('admin.categories.edit', ['category' => $category]);
+        return redirect()->route('admin.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
         $category->update($data);
-        return redirect()->route('admin.categories.show', ['category' => $category]);
+        return redirect()->route('admin.categories.index', ['category' => $category]);
     }
 
     /**
