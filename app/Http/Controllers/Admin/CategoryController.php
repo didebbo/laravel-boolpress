@@ -84,7 +84,9 @@ class CategoryController extends Controller
     {
         // $validation = $this->validator;
         // $validation['title'] = $validation['title'] . ",except," . $category['title'];
-        $request->validate($this->validator);
+        $validator = $this->validator;
+        $validator['title'][3] = $validator['title'][3] . ',' . $category['title'] . ',title';
+        $request->validate($validator);
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
         $category->update($data);
