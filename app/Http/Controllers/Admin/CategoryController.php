@@ -5,18 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Post;
+use App\Category;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
 
-class PostController extends Controller
+class CategoryController extends Controller
 {
     protected $validator = [
-        'title' => ['required', 'string', 'max:100'],
-        'slug' => ['nullable', 'string', 'max:100'],
-        'content' => ['required', 'string'],
-        'url_thumb' => ['required', 'url', 'ends_with:.jpg'],
+        'title' => ['required', 'string', 'max:50', 'unique:categories,title'],
     ];
     /**
      * Display a listing of the resource.
@@ -25,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index', ['posts' => Post::all()]);
+        return view('admin.categories.index', ['categories' => Category::all()]);
     }
 
     /**
@@ -35,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -48,11 +45,10 @@ class PostController extends Controller
     {
         $request->validate($this->validator);
         $data = $request->all();
-        $data['slug'] = $data['slug'] === NULL
-            ? Str::slug($data['title'], '-')
-            : Str::slug($data['slug'], '-');
-        $newPost = Post::create($data);
-        return redirect()->route('admin.posts.show', ['post' => $newPost]);
+        $data['slug'] = Str::slug($data['title'], '-');
+        // dd($data);
+        $newCategory = Category::create($data);
+        return redirect()->route('admin.categories.show', ['category' => $newCategory]);
     }
 
     /**
@@ -61,9 +57,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Category $category)
     {
-        return view('admin.posts.show', ['post' => $post]);
+        return redirect()->view('admin.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -72,9 +68,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Category $category)
     {
-        return view('admin.posts.edit', ['post' => $post]);
+        return view('admin.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -84,15 +80,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Category $category)
     {
+        // $validation = $this->validator;
+        // $validation['title'] = $validation['title'] . ",except," . $category['title'];
         $request->validate($this->validator);
         $data = $request->all();
-        $data['slug'] = $data['slug'] === NULL
-            ? Str::slug($data['title'], '-')
-            : Str::slug($data['slug'], '-');
-        $post->update($data);
-        return redirect()->route('admin.posts.show', ['post' => $post]);
+        $data['slug'] = Str::slug($data['title'], '-');
+        $category->update($data);
+        return redirect()->route('admin.categories.show', ['category' => $category]);
     }
 
     /**
@@ -101,9 +97,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Category $category)
     {
-        $post->delete();
-        return redirect()->route('admin.posts.index', ['posts' => Post::all()]);
+        $category->delete();
+        return redirect()->route('admin.categories.index', ['categories' => Category::all()]);
     }
 }

@@ -36,6 +36,15 @@
                     <small id="url_thumbHelp" class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            {{-- <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                </select>
+                @error('category_id')
+                    <small id="category_idHelp" class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div> --}}
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="{{ route('admin.posts.index') }}" class="btn btn-danger">Cancel</a>
         </form>
