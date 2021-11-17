@@ -37,6 +37,22 @@
                     <small id="url_thumbHelp" class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="category_id">Category</label>
+                <select class="form-control" id="category_id" name="category_id">
+                    <option selected>No Category</option>
+                    @foreach ($categories as $category)
+                        @php
+                            $category_id = old('category_id') ?? $post['category_id'];
+                        @endphp
+                        <option value="{{ $category['id'] }}" {{ $category_id == $category['id'] ? 'selected' : null }}>
+                            {{ $category['title'] }}</option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                    <small id="category_idHelp" class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="{{ route('admin.posts.show', $post['id']) }}" class="btn btn-danger">Cancel</a>
         </form>
