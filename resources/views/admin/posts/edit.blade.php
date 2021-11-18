@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label for="category_id">Category</label>
                 <select class="form-control" id="category_id" name="category_id">
-                    <option selected>No Category</option>
+                    <option value="">No Category</option>
                     @foreach ($categories as $category)
                         @php
                             $category_id = old('category_id') ?? $post['category_id'];

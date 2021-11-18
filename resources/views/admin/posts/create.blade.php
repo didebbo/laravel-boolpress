@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="category_id">Category</label>
                 <select class="form-control" id="category_id" name="category_id">
-                    <option selected>No Category</option>
+                    <option value="">No Category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category['id'] }}"
                             {{ old('category_id') == $category['id'] ? 'selected' : null }}>{{ $category['title'] }}
