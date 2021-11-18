@@ -83,8 +83,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        // $validation = $this->validator;
-        // $validation['title'] = $validation['title'] . ",except," . $category['title'];
         $validator = $this->validator;
         $validator['title'][3] = $validator['title'][3] . ',' . $category['title'] . ',title';
         $request->validate($validator);

@@ -55,7 +55,6 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        // dd($tag['posts']);
         return view('admin.tags.show', compact('tag'));
     }
 
@@ -79,7 +78,13 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $validator = $this->validator;
+        $validator['title'][3] = $validator['title'][3] . ',' . $tag['title'] . ',title';
+        $request->validate($validator);
+        $data = $request->all();
+        $data['slug'] = Str::slug($data['title'], '-');
+        $tag->update($data);
+        return redirect()->route('admin.tags.show', compact('tag'));
     }
 
     /**
@@ -90,6 +95,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('admin.tags.index', ['tag' => Tag::all()]);
     }
 }
