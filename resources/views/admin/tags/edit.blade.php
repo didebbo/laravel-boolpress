@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('admin.categories.update', $category['id']) }}" method="POST">
+        <form action="{{ route('admin.tags.update', $tag['id']) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp"
-                    placeholder="Title" value="{{ old('title') ? old('title') : $category['title'] }}">
+                    placeholder="Title" value="{{ old('title') ? old('title') : $tag['title'] }}">
                 @error('title')
                     <small id="titleHelp" class="form-text text-danger">{{ $message }}</small>
                 @enderror
@@ -24,17 +24,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete the category {{ $category['id'] }}?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete the tag {{ $tag['id'] }}?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    This will delete the category: {{ $category['title'] }}
+                    This will delete the tag: {{ $tag['title'] }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <form action="{{ route('admin.categories.destroy', $category['id']) }}" method="POST">
+                    <form action="{{ route('admin.tags.destroy', $tag['id']) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
