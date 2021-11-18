@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
@@ -36,7 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create', ['categories' => Category::all()]);
+        return view('admin.posts.create', ['categories' => Category::all(), 'tags' => Tag::all()]);
     }
 
     /**
@@ -52,7 +53,9 @@ class PostController extends Controller
         $data['slug'] = $data['slug'] === NULL
             ? Str::slug($data['title'], '-')
             : Str::slug($data['slug'], '-');
+        // dd($data);
         $newPost = Post::create($data);
+        $newPost->tags()->attach($data['tags']);
         return redirect()->route('admin.posts.show', ['post' => $newPost]);
     }
 
