@@ -45,7 +45,8 @@
                         @php
                             $category_id = old('category_id') ?? $post['category_id'];
                         @endphp
-                        <option value="{{ $category['id'] }}" {{ $category_id == $category['id'] ? 'selected' : null }}>
+                        <option value="{{ $category['id'] }}"
+                            {{ $category_id == $category['id'] ? 'selected' : null }}>
                             {{ $category['title'] }}</option>
                     @endforeach
                 </select>

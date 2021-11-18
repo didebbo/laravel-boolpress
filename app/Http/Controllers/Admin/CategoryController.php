@@ -59,7 +59,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return redirect()->route('admin.categories.edit', ['category' => $category]);
+        // dd($category['posts']);
+        return view('admin.categories.show', ['category' => $category]);
     }
 
     /**
