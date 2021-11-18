@@ -53,7 +53,6 @@ class PostController extends Controller
         $data['slug'] = $data['slug'] === NULL
             ? Str::slug($data['title'], '-')
             : Str::slug($data['slug'], '-');
-        // dd($data);
         $newPost = Post::create($data);
         $newPost->tags()->attach($data['tags']);
         return redirect()->route('admin.posts.show', ['post' => $newPost]);
@@ -78,7 +77,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', ['post' => $post, 'categories' => Category::all()]);
+        return view('admin.posts.edit', ['post' => $post, 'categories' => Category::all(), 'tags' => Tag::all()]);
     }
 
     /**
@@ -96,6 +95,7 @@ class PostController extends Controller
             ? Str::slug($data['title'], '-')
             : Str::slug($data['slug'], '-');
         $post->update($data);
+        $post->tags()->sync($data['tags']);
         return redirect()->route('admin.posts.show', compact('post'));
     }
 

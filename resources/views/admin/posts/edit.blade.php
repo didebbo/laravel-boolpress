@@ -54,8 +54,27 @@
                     <small id="category_idHelp" class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="{{ route('admin.posts.show', $post['id']) }}" class="btn btn-danger">Cancel</a>
-        </form>
+            @foreach ($tags as $tag)
+                @php
+                    $tags = old('tags') ?? $post['tags'];
+                @endphp
+                <div class="form-group form-check">
+                    @if ($errors->any())
+                        <input type="checkbox" class="form-check-input" name="tags[]" id="{{ 'tag-' . $tag['id'] }}"
+                            value="{{ $tag['id'] }}" @if (old('tags') && in_array($tag['id'], old('tags'))) checked
+                    @endif
+                    >
+                @else
+                    <input type="checkbox" class="form-check-input" name="tags[]" id="{{ 'tag-' . $tag['id'] }}"
+                        value="{{ $tag['id'] }}" @if ($post['tags']->contains($tag['id'])) checked
+            @endif
+            >
+            @endif
+            <label class="form-check-label" for="{{ 'tag-' . $tag['id'] }}">{{ $tag['title'] }}</label>
+    </div>
+    @endforeach
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="{{ route('admin.posts.show', $post['id']) }}" class="btn btn-danger">Cancel</a>
+    </form>
     </div>
 @endsection
