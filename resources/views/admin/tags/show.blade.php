@@ -2,9 +2,6 @@
 
 
 @section('content')
-    @php
-    dd($tag['posts']);
-    @endphp
     <div class="container">
         <div class="card">
             <div class="card-body">
