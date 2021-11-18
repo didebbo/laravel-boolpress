@@ -53,6 +53,7 @@ class PostController extends Controller
         $data['slug'] = $data['slug'] === NULL
             ? Str::slug($data['title'], '-')
             : Str::slug($data['slug'], '-');
+        $data['tags'] = $data['tags'] ?? [];
         $newPost = Post::create($data);
         $newPost->tags()->attach($data['tags']);
         return redirect()->route('admin.posts.show', ['post' => $newPost]);
@@ -94,6 +95,7 @@ class PostController extends Controller
         $data['slug'] = $data['slug'] === NULL
             ? Str::slug($data['title'], '-')
             : Str::slug($data['slug'], '-');
+        $data['tags'] = $data['tags'] ?? [];
         $post->update($data);
         $post->tags()->sync($data['tags']);
         return redirect()->route('admin.posts.show', compact('post'));
