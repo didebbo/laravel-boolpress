@@ -18,6 +18,10 @@
                     <td><a href="{{ route('admin.categories.index') }}">Categories</a></td>
                     <td><a href="{{ route('admin.categories.create') }}">New Category</a></td>
                 </tr>
+                <tr>
+                    <td><a href="{{ route('admin.tags.index') }}">Tags</a></td>
+                    <td><a href="{{ route('admin.tags.create') }}">New Tag</a></td>
+                </tr>
             </tbody>
         </table>
     </div>
