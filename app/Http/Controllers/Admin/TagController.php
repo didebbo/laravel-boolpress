@@ -9,6 +9,9 @@ use App\Tag;
 
 class TagController extends Controller
 {
+    protected $validator = [
+        'title' => ['required', 'string', 'max:50', 'unique:tags,title'],
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +40,11 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validator);
+        $data = $request->all();
+        $data['slug'] = Str::slug($data['title'], '-');
+        $newTag = Tag::create($data);
+        return redirect()->route('admin.tags.show', ['tag' => $newTag]);
     }
 
     /**
