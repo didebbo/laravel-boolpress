@@ -11,12 +11,12 @@ class PageController extends Controller
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('index', ['posts' => $posts]);
+        return view('index', compact('posts'));
     }
 
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->first();
-        return view('show', ['post' => $post]);
+        return view('show', compact('post'));
     }
 }

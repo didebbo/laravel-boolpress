@@ -64,7 +64,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show', ['post' => $post]);
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -93,7 +93,7 @@ class PostController extends Controller
             ? Str::slug($data['title'], '-')
             : Str::slug($data['slug'], '-');
         $post->update($data);
-        return redirect()->route('admin.posts.show', ['post' => $post]);
+        return redirect()->route('admin.posts.show', compact('post'));
     }
 
     /**
