@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('admin.categories.store') }}" method="POST">
+        <form action="{{ route('admin.tags.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>
@@ -13,7 +13,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="{{ route('admin.categories.index') }}" class="btn btn-danger">Cancel</a>
+            <a href="{{ route('admin.tags.index') }}" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 @endsection
