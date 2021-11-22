@@ -19,4 +19,9 @@ class PageController extends Controller
         $post = Post::where('slug', $slug)->first();
         return view('show', compact('post'));
     }
+
+    public function api()
+    {
+        return view('vue');
+    }
 }
